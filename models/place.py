@@ -8,6 +8,19 @@ from sqlalchemy.orm import relationship
 from models.review import Review
 
 
+if storage_type == 'db':
+    place_amenity = Table('place_amenity', Base.metadata,
+                          Column('place_id', String(60),
+                                 ForeignKey('places.id'),
+                                 primary_key=True,
+                                 nullable=False),
+                          Column('amenity_id', String(60),
+                                 ForeignKey('amenities.id'),
+                                 primary_key=True,
+                                 nullable=False)
+                          )
+
+
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ 'places'
@@ -25,6 +38,8 @@ class Place(BaseModel, Base):
         longitude = Column(Float, nullable=True)
         reviews = relationship('Review', backref='place',
                                cascade='all delete, delete-orphan')
+        amenities = relationship('Amenity', secondary=place_amenity,
+                                 viewonly=False, backref='place_amenities')
 
     else:
         city_id = ""
@@ -53,3 +68,28 @@ class Place(BaseModel, Base):
             if i.place_id == self.id:
                 lst.append(rev)
         return lst
+
+    @property
+    def amenities(self):
+        """Returns the list of Amenity instances based on the
+           attributes amenity_ids which contains all Amenity.id
+           linked to the place
+        """
+        from models import storage
+
+        lst = []
+        revs = storage.all(Amenity)
+        for am in revs.values():
+            if am.id in self.amenity_ids:
+                lst.append(am)
+        return lst
+
+    @amenities.setter
+    def amenities(self, obj):
+        """Adds Amenity.id to the attribute amenity_ids.
+           accepts only Amenity objects
+        """
+        if obj is not None:
+            if isinstance(obj, Amenity):
+                if obj.id not in self.amenity_ids:
+                    self.amenity_ids.append(obj.id)
