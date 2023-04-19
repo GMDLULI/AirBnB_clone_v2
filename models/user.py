@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """This module defines a class User"""
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models import storage_type
 from sqlalchmey import Column, string
 from sqlalchemy.orm import relationship
@@ -17,6 +17,8 @@ class User(BaseModel, Base):
 
         places = relationship('Place', backref='user',
                               cascade='all, delete, delete-orphan')
+        reviews = relationship('Review', backref='user',
+                               cascade='all, delete, delete-orphan')
 
     else:
         email = ''
