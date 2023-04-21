@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
+from models.amenity import Amenity
+from models.review import Review
 from models.base_model import BaseModel, Base
 from models import storage_type
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.sql.schema import Table
 from sqlalchemy.orm import relationship
-from models.review import Review
 
 
 if storage_type == 'db':
@@ -25,7 +26,7 @@ class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ 'places'
 
-    if storage_type = 'db':
+    if storage_type == 'db':
         city_id = Column(String(60), nullable=False, ForeignKey('cities.id'))
         user_id = Column(String(60), nullable=False, ForeignKey('users.id'))
         name = Column(String(128), nullable=False,)
@@ -78,8 +79,8 @@ class Place(BaseModel, Base):
         from models import storage
 
         lst = []
-        revs = storage.all(Amenity)
-        for am in revs.values():
+        amen = storage.all(Amenity)
+        for am in amen.values():
             if am.id in self.amenity_ids:
                 lst.append(am)
         return lst
