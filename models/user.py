@@ -12,7 +12,7 @@ class User(BaseModel, Base):
     if storage_type == 'db':
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
-        first_namei = Column(String(128), nullable=False)
+        first_name = Column(String(128), nullable=False)
         last_name = Column(String(128), nullable=False)
 
         places = relationship('Place', backref='user',

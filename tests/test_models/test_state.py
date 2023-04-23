@@ -6,10 +6,10 @@ import os
 
 
 class test_state(test_basemodel):
-    """states test class """
+    """ states test class"""
 
     def __init__(self, *args, **kwargs):
-        """ state test class init """
+        """ state test class init"""
         super().__init__(*args, **kwargs)
         self.name = "State"
         self.value = State

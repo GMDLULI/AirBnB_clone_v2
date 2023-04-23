@@ -6,10 +6,10 @@ import os
 
 
 class test_Amenity(test_basemodel):
-    """amenity test class """
+    """ amenity test class"""
 
     def __init__(self, *args, **kwargs):
-        """init the test class """
+        """inti the test class """
         super().__init__(*args, **kwargs)
         self.name = "Amenity"
         self.value = Amenity
