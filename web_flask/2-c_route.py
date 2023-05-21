@@ -24,9 +24,10 @@ def hbnb():
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def C():
+def c_text():
     '''Displays the str "C" followed buy value of variable <text>
     '''
+    text = text.replace("_", " ")
     return 'C %s' % escape(text)
 
 
