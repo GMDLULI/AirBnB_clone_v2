@@ -24,7 +24,7 @@ def hbnb():
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_text():
+def c_text(text):
     '''Displays the str "C" followed buy value of variable <text>
     '''
     text = text.replace('_', ' ')
