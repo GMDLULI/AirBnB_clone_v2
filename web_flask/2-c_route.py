@@ -28,7 +28,7 @@ def c_text():
     '''Displays the str "C" followed buy value of variable <text>
     '''
     text = text.replace("_", " ")
-    return 'C %s' % escape(text)
+    return 'C {}'.format(text)
 
 
 if __name__ == '__main__':
