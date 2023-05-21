@@ -31,16 +31,16 @@ def hbnb():
 def c_text(text):
     '''Displays the str "C" followed by value of variable <text>
     '''
-    text = text.replace("_", " ")
+    text = text.replace('_', ' ')
     return 'C {}'.format(text)
 
 
 @app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
-@app.rout('/python/<text>', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
 def python_text(text):
     ''' Displays the str "Pythone" followed by value of variable <text>
     '''
-    text = text.replace("_", " ")
+    text = text.replace('_', ' ')
     return 'Python {}'.format(text)
 
 

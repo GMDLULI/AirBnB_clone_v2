@@ -27,7 +27,7 @@ def hbnb():
 def c_text():
     '''Displays the str "C" followed buy value of variable <text>
     '''
-    text = text.replace("_", " ")
+    text = text.replace('_', ' ')
     return 'C {}'.format(text)
 
 
