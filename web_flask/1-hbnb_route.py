@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-''' Creating a script that starts Flask web application '''
+''' Creating a script that starts Flask web application.
+    With addtional route /hbnb
+'''
 
 from flask import Flask
 
@@ -8,9 +10,15 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello_wolrd():
+def hello_hbnb():
     '''display "hello HBNB" '''
     return 'Hello HBNB!'
+
+
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
+    '''Displays str HBNB'''
+    return 'HBNB'
 
 
 if __name__ == '__main__':
