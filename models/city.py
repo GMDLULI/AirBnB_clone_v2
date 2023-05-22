@@ -2,7 +2,7 @@
 """ City Module for HBNB project """
 from models.base_model import BaseModel, Base
 from models import storage_type
-from sqlachemy import Column, String. ForeignKey
+from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 

@@ -1,22 +1,31 @@
 #!/usr/bin/python3
 """This module defines a base class for all models in our hbnb clone"""
+import models
 import uuid
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, DATETIME
+from sqlalchemy import Column, String, DateTime
 from models import storage_type
+from os import getenv
+
+
+
+if models.storage_type == 'db':
+    Base = declarative_base()
+else:
+    Base = object
 
 
 class BaseModel:
     """A base class for all hbnb models"""
-    id = Cloumn(String(60),
-                nullable=False,
-                primary_key=True,
-                Unique=True)
-    created_at = Cloumn(DATETIME,
-                        nullable=False,
-                        default=datetime.utcnow())
-    updated_at = Cloumn(DATETIME,
+    if models.storage_type == 'db':
+        id = Column(String(60),
+                    nullable=False,
+                    primary_key=True)
+        created_at = Column(DateTime,
+                           nullable=False,
+                           default=datetime.utcnow())
+        updated_at = Column(DateTime,
                         nullable=False,
                         default=datetime.utcnow())
 
@@ -34,7 +43,7 @@ class BaseModel:
                     setattr(self, k, datetime.fromisoformat(kwargs[k]))
                 elif k != '__class__':
                     setattr(self, k, kwargs[k])
-            if storage_type == 'db':
+            if models.storage_type == 'db':
                 if not hasattr(lwargs, 'id'):
                     setattr(self, 'id', str(uuid.uuid4()))
                 if not hasattr(lwargs, 'created_at'):

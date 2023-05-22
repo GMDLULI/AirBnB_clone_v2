@@ -1,16 +1,17 @@
 #!/usr/bin/python3
 '''database storage engine'''
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
+import models
 from models.amenity import Amenity
-from models.base_model import Base
+from models.base_model import BaseModel, Base
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
 from os import getenv
+import sqlalchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
 
 if getenv('HBNB_TYPE_STORAGE') == 'db':
     from models.place import place_amenity
@@ -90,7 +91,8 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)
-        self.__session = scoped_session(session_factory)()
+        Session = scoped_session(session_factory)
+        self.__session = Session
 
     def close(self):
         """closes the working SQLAlchemy session"""
